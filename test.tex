@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage{tikz}
+\usepackage{textpos}
  
 % usage: \tikzpic{<x percent>}{<y percent>}{<image size>}{<image name>}
 \newcommand*{\tikzpic}[4]{%
@@ -13,12 +14,38 @@
 \end{tikzpicture}%
 }
 
-\title[test]%
-{this is a test}
-\author[A. Cervone]{\underline{Antonio Cervone}\\
-{\small \href{mailto:antonio.cervone@polimi.it}{\nolinkurl{antonio.cervone@polimi.it}}}}
-\date[Torino, 18-06-2012]{Torino June 18th, 2012}
-\institute[POLIMI]{Politecnico di Milano}
+% Utility commands for programmatic multiple slide numbering
+\newcounter{slideCounter}
+\newcommand{\resetSlideCounter}{\setcounter{slideCounter}{0}}
+\resetSlideCounter
+
+% Programmatic slide naming
+\newcommand{\titlesec}{\frametitle{\textbf{\insertsectionhead}}}
+\newcommand{\titlesecnum}{\frametitle{\textbf{\insertsectionhead} \;(\arabic{slideCounter})}
+\stepcounter{slideCounter}}
+\newcommand{\titlesub}{\frametitle{\textbf{\insertsectionhead}\;|\; \insertsubsectionhead}}
+\newcommand{\titlesubnum}{
+\frametitle{\textbf{\insertsectionhead}\;|\; \insertsubsectionhead \;(\arabic{slideCounter})}
+\stepcounter{slideCounter}}
+
+% Command for highlighting text
+\newcommand{\hgl}[1]{\textcolor{POLIMIblue}{\textbf{#1}}}
+
+% Enumeration on multiple slides
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+
+
+
+
+\title[Social conversational spaces]%
+{\textbf{Designing social conversational spaces}:\\enhancing communicative and emotional impact}
+\author[L. Spagnolo]{Luigi Spagnolo\\
+{\small \href{mailto:spagnolo@elet.polimi.it}{\nolinkurl{spagnolo@elet.polimi.it}}}}
+\date{\today}
+\institute[POLIMI]{\textbf{Politecnico di Milano}\\Department of Electronics and Information}
 
 \usetheme{POLIMI}
 
@@ -27,50 +54,92 @@
 \titlepage
 \end{frame}
 
-\begin{frame}{Table of contents}
-\tableofcontents
-\end{frame}
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    %\tableofcontents[currentsection,hideallsubsections]
+	  \tableofcontents[currentsection]
+  \end{frame}
+}
 
-\begin{frame}{block}
-\begin{block}{title}
-bla bla bla
-\end{block}
-\end{frame}
-
-\section{A}
-
-\subsection{1}
+\section{Example of section}
+\subsection{Open questions}
 \begin{frame}
-\frametitle{title}
+\titlesub
 \begin{itemize}
-\item 1
-\item 2
+\item What does mean that the information contained in a given conversation is \emph{interesting} or \emph{relevant}? For which users?  In which context?
+\item Which measurable features of social discussions should be considered? 
+\item What are the best strategies for recommending or highlighting the most interesting contributions?
+\item What are the best strategies for exploring on-going and past discussions?
+\item How to handle large social spaces?
+\begin{itemize} 
+\item Many users with different background and expertise (e.g in education and cultural heritage)
+\item An high volume of messages exchanged (blogs with thousands of comments per post
+\end{itemize} 
+\end{itemize} 
+\end{frame}
+
+\subsection{My research work}
+\begin{frame}
+\titlesub
+\begin{block}{Communication-oriented approach}
+Investigating possible relevant features for providing users with a better \hgl{sense making} of
+\begin{itemize}
+\item the \hgl{themes} of the discussion
+\item the degree of \hgl{quality} and \hgl{interestingness} of a conversation
+\item the \hgl{authoritativeness} and degree of \hgl{involvement} of its \hgl{participants}. 
+\end{itemize} 
+\end{block}
+Towards a framework of \hgl{design strategies} for 
+\begin{itemize}
+\item determining the relevant features of discussions from metadata extracted using standard \hgl{text and opinion mining} tools
+\item \hgl{visual representation} of \hgl{past and ongoing conversations}, supporting
+\begin{itemize}
+\item at a glance understanding of themes and participants involved
+\item deeper investigation, analysis and retrieval
+\end{itemize} 
+\end{itemize} 
+\end{frame}
+
+\section{Another section}
+\resetSlideCounter
+\subsection{The subsection}
+\begin{frame}
+\titlesubnum
+\begin{itemize}
+\item First
+\item Second
+\end{itemize}
+\end{frame}
+\begin{frame}
+\titlesubnum
+\begin{itemize}
+\item Third
+\item Fourth
 \end{itemize}
 \end{frame}
 
-\subsection{2}
+\resetSlideCounter
+\subsection{Another subsection}
 \begin{frame}
-\frametitle{title}
+\titlesubnum
+\POLIMItitle{POLIMI Title}
+\begin{enumerate} [i)]
+\item First
+\item Second
+\item Third
+\seti
+\end{enumerate}
 \end{frame}
-
-\section{B}
-
-\subsection{1}
 \begin{frame}
-\frametitle{title}
-\begin{enumerate}[i)]
-\item 1
-\item 2
+\titlesubnum
+\begin{enumerate} [i)]
+\conti
+\item Fourth
+\item Fifth
 \end{enumerate}
 \end{frame}
 
-\subsection{2}
-\begin{frame}
-\frametitle{title}
-\POLIMItitle{POLIMI Title}
-\end{frame}
 
-\begin{frame}
-\frametitle{title}
-\end{frame}
 \end{document}

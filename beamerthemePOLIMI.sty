@@ -21,6 +21,7 @@
 \RequirePackage{etoolbox}
 \RequirePackage{calc}
 \RequirePackage{adjustbox}
+\RequirePackage{textpos}
 
 \definecolor{POLIMIblue}{RGB}{0,51,102} % 003366
 \definecolor{POLIMIorange}{RGB}{255,153,0} % ff9900
@@ -55,42 +56,44 @@
 
 \defbeamertemplate*{title page}{POLIMI}
 {
-%   \begin{tikzpicture}[overlay, remember picture]
-%     \node at (current page.north)
-%       [inner sep=0pt, outer sep=0pt,anchor=north]
-%       {\includegraphics[width=\paperwidth]{polimi_bg}};
-%     \node at (current page.north east)
-%       [anchor=north east, draw, minimum width=.65\paperwidth, minimum height=.18\paperheight]
-%       {TEXT1};
-%     \end{tikzpicture}
-  \vbox{}
-  \vfill
-  \begin{centering}
-    \begin{beamercolorbox}[wd=.9\paperwidth,sep=8pt,center]{title}
-      \usebeamerfont{title}\inserttitle
-    \end{beamercolorbox}%
-    \vskip0.5em\par
-    \begin{beamercolorbox}[sep=8pt,center]{author}
-      \usebeamerfont{author}\insertauthor
+  \begin{textblock*}{198mm}(0mm,0mm)%
+  \begin{tikzpicture}[overlay, absolute, remember picture]
+     \node at (current page.north)
+       [inner sep=0pt, outer sep=0pt,anchor=north]
+       {\includegraphics[width=\paperwidth]{polimi_bg}};
+     \end{tikzpicture}
+  \end{textblock*}
+  \begin{textblock*}{100mm}(20mm,-36mm)%
+    \begin{tikzpicture}[remember picture,overlay]
+    \node at (current page.north east) [anchor=north east] {\includegraphics[width=.1\paperwidth]{logopoli}};
+    \end{tikzpicture}
+  \end{textblock*}
+  \begin{textblock*}{90mm}(15mm,-36mm)%
+	\begin{beamercolorbox}[sep=8pt,right]{institute}
+   	\usebeamerfont{institute}\insertinstitute
     \end{beamercolorbox}
-    \begin{beamercolorbox}[sep=8pt,center]{institute}
-      \usebeamerfont{institute}\insertinstitute
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[sep=8pt,center]{date}
-      \usebeamerfont{date}\insertdate
-    \end{beamercolorbox}\vskip0.5em
-    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
-  \end{centering}
-  \vfill
+  \end{textblock*}
+  \begin{textblock*}{180mm}(8mm,14mm)%
+  	\begin{beamercolorbox}[wd=\paperwidth,sep=8pt]{title}
+		\usebeamerfont{title}\inserttitle
+	\end{beamercolorbox}%
+  	\begin{beamercolorbox}[sep=8pt]{author}
+  	    \usebeamerfont{author}\insertauthor
+  	 \end{beamercolorbox}
+	 \begin{beamercolorbox}[sep=8pt]{date}
+	    \usebeamerfont{date}\insertdate
+	  \end{beamercolorbox}
+  \end{textblock*}
+
 }
 
 \defbeamertemplate*{frametitle}{POLIMI}[1][left]
 {
   \nointerlineskip%
-%   \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
-%   \@tempdima=\textwidth%
-%   \advance\@tempdima by\beamer@leftmargin%
-%   \advance\@tempdima by\beamer@rightmargin%
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \@tempdima=\textwidth%
+   \advance\@tempdima by\beamer@leftmargin%
+   \advance\@tempdima by\beamer@rightmargin%
   \begin{beamercolorbox}[sep=0.3cm,#1,wd=\paperwidth]{frametitle}
     \usebeamerfont{frametitle}%
     \vbox{}\vskip-1ex%
@@ -109,9 +112,9 @@
     \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
     \hbox{\raisebox{-1ex}{\includegraphics[width=\paperwidth]{barra_alta}}}
   \end{beamercolorbox}%
-  \begin{tikzpicture}[remember picture,overlay]
-  \node at (current page.north east) [anchor=north east] {\rule{1cm}{1cm}};
-  \end{tikzpicture}
+  %\begin{tikzpicture}[remember picture,overlay]
+  %\node at (current page.north east) [anchor=north east] {\rule{1cm}{1cm}}; %{\includegraphics[width=.1\paperwidth]{logopoli}};
+  %\end{tikzpicture}
 }
 
 \def\POLIMIbar{\includegraphics[width=.5\paperwidth]{barra_down}}
@@ -130,9 +133,9 @@
   \begin{beamercolorbox}[wd=.3\paperwidth,ht=.75\POLIMIbarh,dp=.25\POLIMIbarh,center]{POLIMIbox}%
     \usebeamerfont{title in head/foot}\tiny\insertshorttitle
   \end{beamercolorbox}%
-%   \begin{beamercolorbox}[wd=.1\paperwidth,ht=.75\POLIMIbarh,dp=.25\POLIMIbarh,center]{POLIMIbox}%
-%     \insertframenumber{} / \inserttotalframenumber
-%   \end{beamercolorbox}%
+   \begin{beamercolorbox}[wd=.1\paperwidth,ht=.75\POLIMIbarh,dp=.25\POLIMIbarh,center]{POLIMIbox}%
+     \insertframenumber{} / \inserttotalframenumber
+   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.2\paperwidth,ht=.75\POLIMIbarh,dp=.25\POLIMIbarh,left]{empty}%
       \raisebox{-.25\POLIMIbarh}{\POLIMIbar}
   \end{beamercolorbox}%
